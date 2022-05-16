@@ -15,6 +15,12 @@ function App() {
     const [postcode, setPostcode] = React.useState("1234AA")
     const [bezorgMoment, setBezorgMoment] = useState("overdag")
 
+    function handleResetClick() {
+        setAppelCount(0);
+        setAardbeiCount(0);
+        setKiwiCount(0);
+        setBanaanCount(0);
+    }
 
     const [deliveryOption, setDeliveryOption] = React.useState("Iedere week")
     const handleDeliveryOption = (event) => {
@@ -41,88 +47,86 @@ function App() {
     }
 
     return (
-        <>
-            <h1>Fruitmand bezorgservice</h1>
+        <body className="body">
+        <h1 className="Header">Fruitmand bezorgservice</h1>
+        <FruitCounter
+            emoji="🍓"
+            fruitTitle="Aardbeien"
+            fruitName="aardbeien"
+            fruitCount={aardbeiCount}
+            setFruitCount={setAardbeiCount}
+        />
 
-            <FruitCounter
-                emoji="🍓"
-                fruitTitle="Aardbeien"
-                fruitName="aardbeien"
-                fruitCount={aardbeiCount}
-                setFruitCount={setAardbeiCount}
-            />
+        <FruitCounter
+            emoji="🍌"
+            fruitTitle="Bananen"
+            fruitName="bananen"
+            fruitCount={banaanCount}
+            setFruitCount={setBanaanCount}
+        />
 
-            <FruitCounter
-                emoji="🍌"
-                fruitTitle="Bananen"
-                fruitName="bananen"
-                fruitCount={banaanCount}
-                setFruitCount={setBanaanCount}
-            />
+        <FruitCounter
+            emoji="🍎"
+            fruitTitle="Appels"
+            fruitName="appels"
+            fruitCount={appelCount}
+            setFruitCount={setAppelCount}
+        />
 
-            <FruitCounter
-                emoji="🍎"
-                fruitTitle="Appels"
-                fruitName="appels"
-                fruitCount={appelCount}
-                setFruitCount={setAppelCount}
-            />
-
-            <FruitCounter
-                emoji="🥝"
-                fruitTitle="Kiwi's"
-                fruitName="kiwis"
-                fruitCount={kiwiCount}
-                setFruitCount={setKiwiCount}
-            />
-
+        <FruitCounter
+            emoji="🥝"
+            fruitTitle="Kiwi's"
+            fruitName="kiwis"
+            fruitCount={kiwiCount}
+            setFruitCount={setKiwiCount}
+        />
+        <div className="resetButton">
             <button type="button"
-                    onClick={() => [setAppelCount(0), setAardbeiCount(0), setKiwiCount(0), setBanaanCount(0)]}
+                    onClick={handleResetClick}
                     name="resetButton"
             >
                 R-r-r-reeeseeeeet
             </button>
+        </div>
+        <div className="formBox">
+            <form className="formulier">
+                <h2>Contactformulier</h2>
+                <label htmlFor="voornaam">Voornaam</label>
 
-            <form>
-                <label htmlFor="voornaam">
-                    Voornaam
-                    <input
-                        type="text"
-                        id="voornaam"
-                        value={voornaam}
-                        onChange={(e) => setVoornaam(e.target.value)}
-                    />
-                </label>
+                <input
+                    type="text"
+                    id="voornaam"
+                    value={voornaam}
+                    onChange={(e) => setVoornaam(e.target.value)}
+                />
 
-                <label htmlFor="achternaam">
-                    Achternaam
-                    <input
-                        type="text"
-                        id="achternaam"
-                        value={achternaam}
-                        onChange={(e) => setAchternaam(e.target.value)}
-                    />
-                </label>
 
-                <label htmlFor="leeftijd">
-                Leeftijd
-                    <input
-                        type="text"
-                        id="leeftijd"
-                        value={leeftijd}
-                        onChange={(e) => setLeeftijd(e.target.value)}
-                    />
-                </label>
+                <label htmlFor="achternaam">Achternaam</label>
+                <input
+                    type="text"
+                    id="achternaam"
+                    value={achternaam}
+                    onChange={(e) => setAchternaam(e.target.value)}
+                />
 
-                <label htmlFor="postcode">
-                Postcode
-                    <input
-                        type="text"
-                        id="postcode"
-                        value={postcode}
-                        onChange={(e) => setPostcode(e.target.value)}
-                    />
-                </label>
+
+                <label htmlFor="leeftijd">Leeftijd</label>
+                <input
+                    type="text"
+                    id="leeftijd"
+                    value={leeftijd}
+                    onChange={(e) => setLeeftijd(e.target.value)}
+                />
+
+
+                <label htmlFor="postcode">Postcode</label>
+                <input
+                    type="text"
+                    id="postcode"
+                    value={postcode}
+                    onChange={(e) => setPostcode(e.target.value)}
+                />
+
 
                 <label htmlFor="bezorgopties">Bezorgfrequentie</label>
                 <select name="bezorgopties"
@@ -133,25 +137,30 @@ function App() {
                     <option value="Om de week">Om de week</option>
                     <option value="Iedere maand">Iedere maand</option>
                 </select>
+                <div className="radio">
+                    <label htmlFor="bezorgmoment">Overdag
+                        <input
+                            type="radio"
+                            name="bezorgmoment"
+                            id="overdag"
+                            value="overdag"
+                            checked={bezorgMoment === "overdag"}
+                            onChange={(e) => setBezorgMoment(e.target.value)}
+                        />
+                    </label>
 
-                <label htmlFor="bezorgmoment">Overdag</label>
-                    <input
-                        type="radio"
-                        name="bezorgmoment"
-                        id="overdag"
-                        value="overdag"
-                        checked={bezorgMoment === "overdag"}
-                        onChange={(e) => setBezorgMoment(e.target.value)}
-                    />
-                <label htmlFor="bezorgmoment">'s Avonds</label>
-                    <input
-                        type="radio"
-                        name="bezorgmoment"
-                        id="avond"
-                        value="avond"
-                        checked={bezorgMoment === "avond"}
-                        onChange={(e) => setBezorgMoment(e.target.value)}
-                    />
+                    <label htmlFor="bezorgmoment">'s Avonds
+                        <input
+                            type="radio"
+                            name="bezorgmoment"
+                            id="avond"
+                            value="avond"
+                            checked={bezorgMoment === "avond"}
+                            onChange={(e) => setBezorgMoment(e.target.value)}
+                        />
+                    </label>
+
+                </div>
                 <label htmlFor="opmerkingen">Opmerking(en)</label>
                 <textarea
                     id="opmerkingen"
@@ -162,25 +171,26 @@ function App() {
 
 
                 <label htmlFor="akkoord-voorwaarden">
-                <input
-                    type="checkbox"
-                    id="akkoord-voorwaarden"
-                    name="voorwaarden"
-                    checked={checkedTerms}
-                    onChange={() => toggleCheckedTerms(!checkedTerms)}
-                />
+                    <input
+                        type="checkbox"
+                        id="akkoord-voorwaarden"
+                        name="voorwaarden"
+                        checked={checkedTerms}
+                        onChange={() => toggleCheckedTerms(!checkedTerms)}
+                    />
                     Ik ga akkoord met de voorwaarden
                 </label>
 
-                <button
-                    type="submit"
-                    disabled={!checkedTerms}
-                    onClick={handleClick}
-                    >
+                <button className="subButton"
+                        type="submit"
+                        disabled={!checkedTerms}
+                        onClick={handleClick}
+                >
                     Verstuur
                 </button>
             </form>
-        </>
+        </div>
+        </body>
     );
 }
 
